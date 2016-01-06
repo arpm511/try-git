@@ -1,0 +1,206 @@
+/******************************** GIT REAL ***********************************/
+
+/** Git is used for version control, and there's a little configuration to be 
+/*	done before starting a project. You can't quite recall what parameters the 
+/*	config command takes, though. Run the git command which will bring up the 
+/*	help page for config.													**/
+
+>	git help config
+
+//	useful notes : 
+//  If you ever need to learn more about a git command. `git help <command>` 
+//	can help.
+
+/**__________________________________________________________________________*/
+
+//	Level 1.1
+
+/** Before you start working with Git, you need to set up your name to include 
+/*  with commit messages. Use git config to set your user name (could be 
+/*	anything), across all repos on this machine.							**/
+
+>	git config --global user.name <name>
+
+/**__________________________________________________________________________*/
+
+//	Level 1.2 START REPO
+
+/** You've begun working on the project, so it's time to setup version control.
+/*  Set up a new Git repo within the current directory.						 */
+
+>	git init
+
+// note : Initialized empty Git repository in /.git/
+
+/**__________________________________________________________________________*/
+
+//	Level 1.3 WHAT'S MODIFIED
+
+/** Okay, you've created a couple files but you can't remember which needed 
+/*  committing. Use the Git command which will show the state of your files. */
+
+>	git status
+
+/**__________________________________________________________________________*/
+
+//	Level 1.4 STAGE FILES
+
+/** Ah, there's your file. It's never been committed before, so add it to the 
+/*  staging area															 */
+
+>	git add index.html
+
+/**__________________________________________________________________________*/
+
+//	Level 1.5 COMMIT FILES
+
+/** Now add your staged changes to the Git repo by committing them.			 */
+
+>	git commit -m "Add index.html"
+
+/**__________________________________________________________________________*/
+
+//	Level 1.6 STAGE MANY FILES
+
+/** You've made a subdirectory for stylesheets, but nothing's committed yet. 
+/*	Add all files in the css/ directory to the stage.						 */
+
+>	git add css/*.css
+
+
+/**__________________________________________________________________________*/
+
+//	Level 1.7 SHOW COMMITS
+
+/** Your co-worker stops by, and asks what you've gotten committed. Bring up 
+/*	the commit history to show him.											 */
+
+>	git log
+
+
+/**__________________________________________________________________________*/
+
+
+
+/////////////////////////////	Level 2    ////////////////////////////////////
+
+/**__________________________________________________________________________*/
+
+//	Level 2.1 UNSTAGED DIFFERENCES
+
+/** A new file has been added to the site. Run the command to see what all has 
+/*	changed since your last commit.											 */
+
+>	git diff HEAD
+
+/**__________________________________________________________________________*/
+
+//	Level 2.2.1 STAGE NEW FILE
+
+/**	There it is: ostrich.html. Stage it to be committed.					 */
+
+>	git add ostrich.html
+
+//	Level 2.2.2 STAGED DIFFERENCES
+
+/** We've added ostrich.html to the staging area, but your co-worker has stopped 
+/*	by and asked to see the new page first. Run a diff on the staged changes.*/
+
+>	git diff --staged
+
+//	Level 2.2.3 UNSTAGE FILES
+
+/** "Wait," says the co-worker. "They didn't tell you? The client "wants the 
+/*	ostrich section pulled - they couldn't get a license to "sell them." 
+/*	Better unstage ostrich.html.											 */
+
+> git reset ostrich.html
+
+/**__________________________________________________________________________*/
+
+//	Level 2.3 SKIP STAGING
+
+/** We've modified the index.html file, adding a link to the cats section. 
+/*	Since that file is already tracked, you can just skip staging and commit it
+/*  with one command.														 */
+
+> git commit -a -m "Add link to cats"
+
+/**__________________________________________________________________________*/
+
+//	Level 2.4.1 ADD TO COMMIT
+
+/** Whoops! We forgot to add the cats.html page that index.html links to, and 
+/*	it should really be amended on the same commit. To do this, let's first 
+/*	stage cats.html.														 */
+
+>	git add cats.html
+
+//	Level 2.4.2 AMMEND THE PREVIOUS COMMIT
+
+>	git commit --amend -m "Add link to cats; add cats page"
+
+/**__________________________________________________________________________*/
+
+//	Level 2.5 ROLL BACK COMMIT
+
+/** Wait, you're getting word that the cats section might be cancelled.
+/*	Undo the commit, and put the files back in staging.						 */
+
+>	git reset --soft HEAD^
+
+// note : Make sure to use the --soft to undo the commit, but save the file changes
+
+/**__________________________________________________________________________*/
+
+//	Level 2.6 DISCARD CHANGES
+
+/** Forget the whole thing - the client's license to sell cats is suspended 
+/*	during some kind of "investigation". Discard your changes to cats.html 
+/*	and index.html.															 */
+
+>	git checkout -- cats.html index.html
+
+/**__________________________________________________________________________*/
+
+//	Level 2.7.1 REMOVE COMMIT
+
+/** The next feature is a banner on the main page, saying the pet shop will soon
+/*  be offering badgers. Add and commit index.html in one step, skipping the 
+/*	staging area.															 */
+
+>	git commit --all -m "update index.html"
+
+//	Level 2.7.2 REMOVE COMMIT
+
+/** Your co-worker is back, looking sheepish. "Never mind the badgers ad. 
+/*	The client's legal department said that was a liability risk." You'll need
+/*  to remove the most recent commit, and all its changes.					 */
+
+>	git reset --hard HEAD^
+
+/**__________________________________________________________________________*/
+
+
+
+/////////////////////////////	Level 3	  /////////////////////////////////////
+
+/**__________________________________________________________________________*/
+
+//	Level 3.1 NEW REMOTE REPOS
+
+/** Oh well, at least you have the site started. Your Example Labs co-worker
+/*  got you the remote address for the 
+/*  shared repo: git@example.com:example/petshop.git. 
+/*  Add that address as the origin repo.									 */
+
+>	git add origin git@example.com:example/petshop.git
+
+/**__________________________________________________________________________*/
+
+//	Level 3.2 PUSH TO A REMOTE
+
+/** Done for the day! Send your committed work to "origin". Make sure you use 
+/*  the -u option so origin will be the default destination in the future. 	 */  
+
+>	git push -u origin master

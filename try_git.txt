@@ -1,0 +1,317 @@
+/******************************** LEARNING GIT*******************************/
+
+/** Git allows groups of people to work on the same documents (often code) at
+/* the same time, and without stepping on each other's toes. It's distributed
+/* version control system.
+____________________________________________________________________________**/
+
+// 1.1 INITIALIZING A GIT REPOSITORY
+
+// Our terminal prompt below is currently in a directory we decided to name
+// "octobox". To initialize a Git repository here, type the following command:
+
+>	git init
+	
+// useful notes : 
+/** Directory - a folder used for storing multiple files
+/*  Repository - a directory where Git has been initialized to start version
+/*               controlling your files. 
+
+___________________________________________________________________________**/
+
+// 1.2 CHECKING THE STATUS
+
+/** Good job! As Git told us, our "octobox" directory now has an empty reposi-
+/*  -tory in /.git/. The repository is a hidden directory where Git operates*/
+
+//  Next up, let's type the git status command to see what the curren state of
+//  our project is : 
+
+>	git status
+
+/**
+___________________________________________________________________________**/
+
+//  1.4 ADDING CHANGES
+
+/** Good, it looks like our repository is working properly. Notice how Git 
+/*  says octocat.txt is "untracked"? That means Git sees that octocat.txt is
+/*  a new file.		**/
+
+//  To tell Git to start tracking changes made to octocat.txt, we first need
+//  to add it to the staging area by using git add.
+
+>	git add octocat.txt
+
+//  useful notes :
+/** Staged - files are ready to be committed
+/*  Unstaged - files with changes that have not been prepared to be committed
+/*  Untracked - Files aren't tracked by Git yet. This usually indicates a 
+/* 				newly created file
+/*  Deleted - file has been deleted and is waiting to be removed from Git
+___________________________________________________________________________**/
+
+//	1.4.1 DIFFERENT WAYS TO ADD
+
+>	git add <list of files>			// add the list of files
+
+>	git add --all					// add all files
+
+>	git add *.txt					// add all txt files in current directory
+
+>	git add docs/*.txt				// add all txt files in docs directory
+
+>	git add docs/					// add all files in docs directory
+
+>	git add "*.txt"					// add all txt files in the whole project
+
+
+/**________________________________________________________________________**/
+
+//  1.5 CHECKING FOR CHANGES
+
+/** Good job! Git is now tracking our octocat.txt file. Let's run git status 
+/*  again to see where we stand : 	**/
+
+>	git status
+
+//	useful notes : 
+/** add all : You can also type >git add -A . where the dot stands for the
+/*			  current directory, so everything in and beneath it is added.
+/*			  The -A ensures that even file deletions are included.
+/*  git reset : You can use git reset <filename> to remove a file or files
+/*				from the staging area.
+
+___________________________________________________________________________**/
+
+//	1.6 COMMITTING
+
+/** Notice how Git says "changes to be committed"? The files listed here are
+/*	in the Staging Area, and they are not in our repository yet. We could add
+/*  or remove files from the stage before we store them in the repository.**/
+
+//  To store our staged changes we run the commit command with a message 
+//  describing what we've changed. Let's do that now by typing : 
+
+>	git commit -m "Add cute octocat story"
+
+//	useful notes : 
+/** Staging Area - A place where we can group files together before we "commit"
+/*				   them to Git.
+/*	Commit - A "commit" is a snapshot of our repository. This way if we ever 
+/* 			 need to look back at the changes we've made (or if someone else 
+/*			 does,
+
+___________________________________________________________________________**/
+
+// 1.7 ADDING ALL CHANGES
+
+/** Great! You can also use wildcards if you want to add many files of the
+/*  same type. Notice that I've added a bunch of files into your directory
+/*  below	 **/
+
+//  I put some in a directory called "octofamily" and some others ended up
+//  in the root of our "octobox" directory. Luckily, we can add all the new
+//  files using a wildcard with git add. Don't forget the quotes!
+
+>	git add '*.txt'
+
+//  useful notes : 
+/** We need quotes so that Git will receive the wildcard before our shell 
+/*  can interfere with it. Without quotes, our shell will only execute the
+/*	wildcard search within the current directory. Git will receive the list
+/*  of files the shell found instead of the wildcard and it will not be 
+/*  able to add the files inside of the "octofamily" directory.
+
+__________________________________________________________________________**/
+
+//  1.8 COMMITTING ALL CHANGES
+
+/** Okay, you've added all the text files to the staging area. Feel free to 
+/*	run git status to see what you're about to commit.
+/*  If it looks good, go ahead and run:		**/
+
+>   git commit -m "Add all the octocat txt files"
+
+//useful notes : 
+/** When using wildcards you want to be extra careful when doing commits. 
+/*	Make sure to check what files and folders are staged by using git status
+/*	before you do the actual commit. This way you can be sure you're
+/*  committing only the things you want.
+
+__________________________________________________________________________**/
+
+//  1.9 HISTORY
+
+/** So we've made a few commits. Now let's browse them to see what we changed.
+/*	Fortunately for us, there's git log. Think of Git's log as a journal that 
+/*	remembers all the changes we've committed so far, in the order we committed
+/*	them. Try running it now : 		**/
+
+>	git log
+
+//	useful notes : 
+/** use git log --summary to see more information for each commit. You can see
+/*	where new files were added for the first time or where files were deleted.
+/*	It's a good overview of what's going on in the project.
+
+____________________________________________________________________________**/
+
+// 	1.10 REMOTE REPOSITORIES
+
+/** Great job! We've gone ahead and created an empty GitHub repository for you
+/*	to use with Try Git at https://github.com/try-git/try_git.git. To push our
+/*	repo to the GitHub server we'll need to add a remote repository.
+
+/* 	This command takes a remote name and a repository URL, which in your case
+/*  is https://github.com/try-git/try_git.git.		**/
+
+//	Go ahead and run git remote add with the options below : 
+
+>	git remote add origin https://github.com/try-git/try_git.git
+
+//	useful notes : 
+/** Git doesn't care what you name your remotes, but it's typical to name your 
+/*  main one origin.
+
+/*  It's also a good idea for your main repository to be on a remote server like
+/*	GitHub in case your machine is lost at sea during a translantic boat cruise 
+/*  or crushed by three monkey statues during an earthquacke.
+
+____________________________________________________________________________**/
+
+//	1.11 PUSHING REMOTELY
+
+/** The push command tells Git where to put our commits when we're ready, and boy
+/*	we're ready. So let's push our local changes to our origin repo (on GitHub).
+
+/*	The name of our remote is origin and the default local branch name is master. 
+/*	The -u tells Git to remember the parameters, so that next time we can simply 
+/*	run git push and Git will know what to do. Go ahead and push it!	**/
+
+> 	git push -u origin master
+
+//	useful notes : 
+/** When you start to get the hang of git you can do some really cool things with
+/*	hooks when you push.
+/*	For example, you can upload directly to a webserver whenever you push to your 
+/*	master remote instead of having to upload your site with an ftp client. Check 
+/*	out git-scm.com/book/en/Customizing-Git-Git-Hooks for more information.
+
+____________________________________________________________________________**/
+
+//	1.12 PULLING REMOTELY
+
+/** Let's pretend some time has passed. We've invited other people to our GitHub
+/*	project who have pulled your changes, made their own commits, and pushed them.**/
+
+//	We can check for changes on our GitHub repository and pull down any new 
+//	changes by running:
+
+>	git pull origin master
+
+/**	Sometimes when you go to pull you may have changes you don't want to commit
+/*	just yet. One option you have, other than commiting, is to stash the changes.
+/*	Use the command 'git stash' to stash your changes, and 'git stash apply' to 
+/*	re-apply your changes after your pull.
+
+____________________________________________________________________________**/
+
+//	1.13 DIFFERENCES
+
+/** Uh oh, looks like there have been some additions and changes to the octocat
+/*	family. Let's take a look at what is different from our last commit by using 
+/*	the git diff command.
+
+/* In this case we want the diff of our most recent commit, which we can refer to 
+/*	using the HEAD pointer.		**/
+
+>	git diff HEAD
+
+//	useful notes : 
+/** The HEAD is a pointer that holds your position within all your different commits. 
+/*	By default HEAD points to your most recent commit, so it can be used as a quick 
+/*	way to reference that commit without having to look up the SHA.
+
+____________________________________________________________________________**/
+
+//	1.14 STAGED DIFFERENCES
+
+/** Another great use for diff is looking at changes within files that have
+/*  already been staged. Remember, staged files are files we have told git 
+/*	that are ready to be committed.		**/
+
+//	Let's use git add to stage octofamily/octodog.txt, which I just added to the
+//  family for you.
+
+>	git add octofamily/octodog.txt
+
+>	git diff --staged
+//	useful notes : 
+/** Committing Etiquette : You want to try to keep related changes together in 
+/*	separate commits. Using 'git diff' gives you a good overview of changes you
+/*	have made and lets you add files or directories one at a time and commit 
+/*	them separately.
+
+____________________________________________________________________________**/
+
+//	1.15 UNSTAGING FILES
+
+/** Remove files from stage **/
+
+>	git reset HEAD <file>
+
+/**_________________________________________________________________________**/
+
+//	1.16 DISCARD CHANGES
+
+/**	The file is now unstaged but still has its modifications. But what if we 
+/*	changed our minds and we decide we don't want those modifications anymore?
+/*	what if we wanted to reset it to the state that that file was in the last 
+/*	time it was committed (aka last time it was changed)? **/
+
+>	git checkout -- <file>
+
+/**_________________________________________________________________________**/
+
+//	1.17 SKIP STAGING AND COMMIT
+
+>	git commit -a -m "Message"
+
+/** where -a signifies that changes are being added for all tracked files
+
+____________________________________________________________________________**/
+
+//	1.18 UNDOING A COMMIT
+
+>	git reset --soft HEAD^
+
+/** --soft : reset into staging
+/*	HEAD^ : move to commit before head
+
+_____________________________________________________________________________**/
+
+//	1.19 ADDING TO A COMMIT
+
+/** Another way to modify a commit, is to use the "amend" option **/
+
+>	git commit --amend -m "Modify last commit"
+
+/**__________________________________________________________________________**/
+
+//	1.20 WORKING WITH REMOTES
+
+>	git remote -v 						//show remote repositories
+
+>	git remote add <name> <address>		//to add new remotes
+
+>	git remote rm	<name>				// to remove remotes
+
+>	git push -u <name>	<branch>		// to push to remotes
+
+/**__________________________________________________________________________**/
+
+
+//	1.21 HEROKU REMOTE
+
+>	git push heroku master
